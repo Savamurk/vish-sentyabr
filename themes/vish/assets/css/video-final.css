@@ -72,6 +72,16 @@ main { margin-top: 0; }
 .page:not(:has(.bgmain.bgpage)) .header.menu-fixed .header__wrapper { min-height: 121px; }
 .page:not(:has(.bgmain.bgpage)) .header.menu-fixed .header__logo img { width: 100%; max-width: 320px; max-height: 121px; }
 .page:not(:has(.bgmain.bgpage)) .header.menu-fixed .header__phone-wrp span { display: inline; }
+/* На телефоне прилипшая шапка внутренних страниц остаётся того же размера, что вверху
+   страницы: иначе правило выше растягивает логотип до 320px и он наезжает на бургер. */
+@media (max-width: 991px) {
+  .page:not(:has(.bgmain.bgpage)) .header.menu-fixed .header__wrapper { min-height: 74px; }
+  .page:not(:has(.bgmain.bgpage)) .header.menu-fixed .header__logo img { width: auto; max-width: 190px; max-height: 76px; }
+}
+@media (max-width: 575px) {
+  .page:not(:has(.bgmain.bgpage)) .header.menu-fixed .header__wrapper { min-height: 62px; }
+  .page:not(:has(.bgmain.bgpage)) .header.menu-fixed .header__logo img { max-width: 156px; max-height: 62px; }
+}
 
 /* Three-card home hero */
 .hblocks { padding: 10px 0 14px; background: transparent; }

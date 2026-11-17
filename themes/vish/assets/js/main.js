@@ -9,6 +9,9 @@ $(function () {
     })
         .after("<div id='mobile-menu'>").clone().appendTo("#mobile-menu");
     $("#mobile-menu").find("*").attr("style", "");
+    // В пункте меню два подменю: большое для ПК и простое для телефона. Без этой
+    // строки мобильное меню вешает стрелку на компьютерное, а оно на телефоне скрыто.
+    $("#mobile-menu").find(".service-menu").remove();
     $("#mobile-menu").children("ul").removeClass("sf-menu")
         .parent().mmenu({
             extensions: ['widescreen', 'theme-white', 'effect-menu-slide', 'pagedim-black'],

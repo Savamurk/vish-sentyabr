@@ -18,7 +18,7 @@
   ready(() => {
     const body = document.body;
     const hasServiceHero = Boolean(document.querySelector('.bgmain.bgpage'));
-    const isHome = location.pathname.replace(/\/+$/, '') === '';
+    const isHome = location.pathname.replace(/^\/vish-sentyabr/, '').replace(/\/+$/, '') === '';
     body.classList.toggle('service-redesign-page', hasServiceHero);
     body.classList.toggle('home-redesign-page', !hasServiceHero && isHome);
 
@@ -320,7 +320,7 @@
       if (!link) return;
 
       const target = document.querySelector('#team');
-      if (!target || location.pathname.replace(/\/+$/, '') !== '') return;
+      if (!target || location.pathname.replace(/^\/vish-sentyabr/, '').replace(/\/+$/, '') !== '') return;
 
       event.preventDefault();
       const menu = window.jQuery ? window.jQuery('#mobile-menu').data('mmenu') : null;
