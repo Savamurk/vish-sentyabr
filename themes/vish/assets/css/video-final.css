@@ -78,6 +78,13 @@ main { margin-top: 0; }
   .page:not(:has(.bgmain.bgpage)) .header.menu-fixed .header__wrapper { min-height: 74px; }
   .page:not(:has(.bgmain.bgpage)) .header.menu-fixed .header__logo img { width: auto; max-width: 190px; max-height: 76px; }
 }
+/* Длинное слово в вопросе FAQ («административному») на узком телефоне не помещалось
+   и выталкивало кнопку «+» за край карточки: разрешаем вопросу сжиматься и переносить слова. */
+.accordion__title { min-width: 0; overflow-wrap: anywhere; hyphens: auto; }
+/* Кнопки мессенджеров уходят под затемнение, пока открыто окно заявки или просмотр
+   видео и фото, иначе они висят поверх окна. */
+.modal-open .contact-panel,
+.with-fancybox .contact-panel { z-index: 1040; }
 @media (max-width: 575px) {
   .page:not(:has(.bgmain.bgpage)) .header.menu-fixed .header__wrapper { min-height: 62px; }
   .page:not(:has(.bgmain.bgpage)) .header.menu-fixed .header__logo img { max-width: 156px; max-height: 62px; }

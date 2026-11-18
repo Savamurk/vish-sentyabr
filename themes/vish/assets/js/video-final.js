@@ -30,6 +30,21 @@
       header.after(spacer);
     }
 
+    // При прокрутке шапка становится fixed и выпадает из потока, и без вставки её высоты
+    // содержимое прыгает вверх. Высоту берём у шапки в обычном состоянии на любой странице.
+    const flowSpacer = header && header.nextElementSibling;
+    if (flowSpacer && flowSpacer.classList.contains('local-header-flow-spacer')) {
+      let staticHeight = header.offsetHeight;
+      const syncSpacer = () => {
+        const fixed = header.classList.contains('menu-fixed');
+        if (!fixed) staticHeight = header.offsetHeight;
+        flowSpacer.style.height = fixed ? `${staticHeight}px` : '0px';
+      };
+      new MutationObserver(syncSpacer).observe(header, { attributes: true, attributeFilter: ['class'] });
+      window.addEventListener('resize', syncSpacer);
+      syncSpacer();
+    }
+
     document.addEventListener('click', (event) => {
       const button = event.target.closest('#modalclose');
       if (!button) return;
@@ -146,6 +161,23 @@
           subtitle.className = 'video__subtitle';
           subtitle.textContent = 'Клиенты коротко рассказывают о своём опыте';
           heading.after(subtitle);
+        }
+
+        // К части услуг ролики в админке не привязаны, и секция выходила пустой с одним
+        // заголовком. Карточки всё равно заполняются тремя общими отзывами ниже,
+        // поэтому для пустой секции создаём такие же три карточки.
+        const grid = section.querySelector('.video__wrp2');
+        if (grid && !grid.querySelector('.video__item')) {
+          grid.innerHTML = metadata.map(() => `
+            <div class="col-sm-12 col-md-4 d-flex align-items-stretch video__item2">
+              <div class="video__item">
+                <div class="video__wrp">
+                  <img class="video__poster" src="" alt="">
+                  <a class="play-icon" href="#" data-fancybox><img alt="play" src="${asset('assets/img/play.svg')}"></a>
+                </div>
+                <div class="video__title"></div>
+              </div>
+            </div>`).join('');
         }
 
         section.querySelectorAll('.video__item').forEach((card, index) => {
